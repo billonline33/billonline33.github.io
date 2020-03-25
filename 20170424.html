@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Bill Huang - Software Engineer</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=no"
+    />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <noscript><link rel="stylesheet" href="assets/css/noscript.css"/></noscript>
+  </head>
+  <body class="is-preload">
+    <!-- Wrapper -->
+    <div id="wrapper">
+      <!-- Header -->
+      <header id="header"></header>
+
+      <!-- Nav -->
+      <nav id="nav">
+        <ul class="links">
+          <li><a href="index.html">Home</a></li>
+        </ul>
+      </nav>
+
+      <!-- Main -->
+      <div id="main">
+        <!-- Post -->
+        <section class="post">
+          <header class="major">
+            <span class="date">April 24, 2017</span>
+            <h1>
+              A React App without Redux
+            </h1>
+            <p>Using callback to pass states between sibling components</p>
+          </header>
+          <div class="image main">
+            <img src="images/20170424/EmptyScreen2.png" alt="" />
+          </div>
+          <p>
+            When I first learned react, I was told that I must also learn redux.
+            so I started write code using redux from day one, then I asked
+            myself, why? why must I learn redux?
+          </p>
+          <p>
+            So I decided to write Ante app without redux, and would like to
+            share a small app with you.
+          </p>
+          <h2>1. Introduction</h2>
+          <h3>hCard Builder</h3>
+          <p>
+            hCard is a simple, open format for publishing people, companies and
+            organizations on the web.
+          </p>
+          <p>This application is built in react.</p>
+
+          <h3>Run the App</h3>
+          <p>You can run the app from Here</p>
+          <p>
+            To run the app from your local computer, going to the project folder
+          </p>
+
+          <pre>
+						<code>
+1. npm install
+   this will install all required modules
+
+2. npm start			 
+   This will run the app in the development mode.
+   Open http://localhost:3000 to view it in the browser.
+					 </code>
+					</pre>
+
+          <h2>2. Main Features</h2>
+          <ul>
+            <li>
+              As the form is filled out, the preview is automatically updated
+            </li>
+            <li>
+              When the user selects an image, a thumbnail is shown in the
+              preview
+            </li>
+            <li>The app is responsive for different screen widths</li>
+          </ul>
+
+          <p>
+            Once you open the app, you will see an empty business card entry
+            form.
+          </p>
+          <div class="image main">
+            <img src="images/20170424/EmptyScreen2.png" />
+          </div>
+
+          <p>
+            Once you start to type on the left panel, the right preview panel
+            will update accordingly.
+          </p>
+          <div class="image main">
+            <img alt="" src="images/20170424/DataEntry1.png" />
+          </div>
+
+          <div class="image main">
+            <img alt="" src="images/20170424/DataEntry2.png" />
+          </div>
+
+          <p>
+            Click "Upload Avatar" button, it will update the image on the
+            preview panel.
+          </p>
+          <div class="image main">
+            <img alt="" src="images/20170424/DataEntry3.png" />
+          </div>
+
+          <p>
+            On my other posts, I have show many examples using redux as state
+            management. In this example, I will show you how to manage states
+            using react only, without redux.
+            <br />
+            For a sample application which use redux, please visit Employee List
+            Dmeo Using React + Redux
+          </p>
+
+          <h2>3. Application Folder Structure</h2>
+
+          <p></p>
+
+          <pre spellcheck="false">
+						<code>
+node_modules/
+package.json
+public/
+  index.html
+  favicon.ico
+src/
+  App.css
+  App.js
+  App.test.js
+  index.css
+  index.js
+  logo.svg
+  css/
+    style.css
+  components/
+    hcardform.js
+    hcardpreview.js
+    inputFileReader.js
+						</code>
+					</pre>
+          <div class="image main">
+            <img alt="" src="images/" />
+          </div>
+
+          <h2>4. Components Structure</h2>
+
+          <p>
+            Whenever a value changes in HCardForm component, it need to pass the
+            state to HCardPreview component, and update HcardPreview component
+            accordingly. <br />
+            We know that we can pass state to component as props, we also know
+            that state can only be passed from parent to child. <br />
+            So the challenge is, how to pass state between two siblings. <br />
+            To achieve that, we need to:
+          </p>
+
+          <h3>
+            4.1 Pass states from HcardForm to the parent component, which is App
+            component.
+          </h3>
+          <p>I define state in App component first</p>
+          <pre><code>  
+          constructor(props) {
+            super(props);
+            this.state = {
+              givenName: "",
+              surname: "",
+              email: "",
+              phone: "",
+              houseNumber: "",
+              street: "",
+              suburb: "",
+              state: "",
+              postcode: "",
+              country: "",
+              avatar: ""
+            };
+          }
+        </code></pre>
+          <p>I then pass the state to HCardForm component as props</p>
+          <pre><code>    
+          &lt;HCardForm formValue={this.state} /&gt;
+          </code></pre>
+          <p>
+            Whenever an input field value is changes, we need to chang state in
+            App component. In Order to do that, we use callback function.
+          </p>
+
+          <pre><code>    
+            // callback
+            handleFormFieldChange(formValue) {
+                this.setState(formValue);
+            }
+
+          &lt;HCardForm
+              formValue={this.state}
+              onFormFieldChange={this.handleFormFieldChange}
+            /&gt;
+          </code></pre>
+
+          <p>
+            Whenever an input field value is changes, we need to chang state in
+            App component. In Order to do that, we use callback function.
+          </p>
+          <pre><code>    
+            // callback
+            handleFormFieldChange(formValue) {
+                this.setState(formValue);
+            }
+         
+           &lt;HCardForm
+              formValue={this.state}
+              onFormFieldChange={this.handleFormFieldChange}
+            /&gt;
+         </code></pre>
+
+          <p>
+            When there is a change in HCardForm, it calls
+            this.props.onFormFieldChange props, and pass the updated value back
+            to the parent (App component).
+          </p>
+          <p>
+            Below is the code on how to impment this in HCardForm component:
+          </p>
+          <p>
+            whenever there is a change on input, we call
+            onChange={this.handleFormInputChange
+          </p>
+          <pre><code>        
+            &lt;input
+            type="text"
+            name="givenName"
+            value={formValue.givenName}
+            placeholder="Given Name"
+            onChange={this.handleFormInputChange}
+          /&gt;
+          </code></pre>
+
+          <p>I then handle the event:</p>
+
+          <pre><code>        
+            handleFormInputChange(event) {
+            const target = event.target;
+            const value = target.value;
+            const name = target.name;
+
+            this.setState(
+              {
+                [name]: value
+              },
+              /* use callback function, only call this funciton after setState is completed */
+              function() {
+                this.props.onFormFieldChange(this.state);
+              }
+            );
+         }
+        </code></pre>
+
+          <p>Note the code</p>
+          <pre><code>           
+            this.setState(
+            {
+              [name]: value
+            },
+            /* use callback function, only call this funciton after setState is completed */
+            function() {
+              this.props.onFormFieldChange(this.state);
+            }
+          );
+          </code></pre>
+
+          <p>It will not work if you change the code to</p>
+          <pre><code>             
+            this.setState(
+              {
+                [name]: value
+              });
+
+            this.props.onFormFieldChange(this.state);
+          </code></pre>
+
+          <p>Why? ...</p>
+
+          <h3>4.2 Pass state from App componet to HCardPreview component</h3>
+
+          <h2>5. Development Consideration</h2>
+        </section>
+      </div>
+
+      <!-- Copyright -->
+      <div id="copyright">
+        <ul>
+          <li>Design: <a href="https://html5up.net">HTML5 UP</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.scrollex.min.js"></script>
+    <script src="assets/js/jquery.scrolly.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>
