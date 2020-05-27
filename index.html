@@ -9,7 +9,24 @@
       content="width=device-width, initial-scale=1, user-scalable=no"
     />
     <link rel="stylesheet" href="assets/css/main.css" />
-    <noscript><link rel="stylesheet" href="assets/css/noscript.css"/></noscript>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script
+      async
+      src="https://www.googletagmanager.com/gtag/js?id=UA-167760086-1"
+    ></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag() {
+        dataLayer.push(arguments);
+      }
+      gtag("js", new Date());
+
+      gtag("config", "UA-167760086-1");
+    </script>
+
+    <noscript
+      ><link rel="stylesheet" href="assets/css/noscript.css"
+    /></noscript>
   </head>
   <body class="is-preload">
     <!-- Wrapper -->
@@ -18,7 +35,7 @@
       <div id="intro">
         <img
           src="images/billHuang2.jpeg"
-          style="border-radius: 50%;width:150px"
+          style="border-radius: 50%; width: 150px;"
         />
         <h1>Bill Huang</h1>
         <p>
@@ -95,13 +112,18 @@
             href="https://billonline33.github.io/kafka-nodejs-tutorial"
             class="image main"
           >
-            <p style="text-align:center;">
+            <p style="text-align: center;">
               <iframe
                 allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
                 allowfullscreen=""
                 frameborder="0"
                 src="https://www.youtube.com/embed/WtiOrtr0TKo"
-                style="max-width:780px; max-height:500px; width:100%; height:56vw"
+                style="
+                  max-width: 780px;
+                  max-height: 500px;
+                  width: 100%;
+                  height: 56vw;
+                "
               >
               </iframe>
             </p>
