@@ -16,6 +16,15 @@
     <noscript
       ><link rel="stylesheet" href="assets/css/noscript.css"
     /></noscript>
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"
+    ></script>
+    <script type="text/javascript">
+      (function () {
+        emailjs.init("gvzaRh7lN5qWwnHPM"); // Replace with your EmailJS user ID
+      })();
+    </script>
   </head>
   <body class="is-preload">
     <!-- Wrapper -->
@@ -71,19 +80,24 @@
       <!-- Footer -->
       <footer id="footer">
         <section>
-          <form method="post" action="#">
+          <form id="contactForm">
             <div class="fields">
               <div class="field">
                 <label for="name">Name</label>
-                <input type="text" name="name" id="name" />
+                <input type="text" name="name" id="name" required />
               </div>
               <div class="field">
                 <label for="email">Email</label>
-                <input type="text" name="email" id="email" />
+                <input type="email" name="email" id="email" required />
               </div>
               <div class="field">
                 <label for="message">Message</label>
-                <textarea name="message" id="message" rows="3"></textarea>
+                <textarea
+                  name="message"
+                  id="message"
+                  rows="3"
+                  required
+                ></textarea>
               </div>
             </div>
             <ul class="actions">
@@ -137,5 +151,31 @@
     <script src="assets/js/breakpoints.min.js"></script>
     <script src="assets/js/util.js"></script>
     <script src="assets/js/main.js"></script>
+    <script>
+      document
+        .getElementById("contactForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault();
+
+          const name = document.getElementById("name").value;
+          const email = document.getElementById("email").value;
+          const message = document.getElementById("message").value;
+
+          emailjs
+            .send("service_whrjg6s", "template_c07eb54", {
+              from_name: name,
+              reply_to: email,
+              message: message,
+            })
+            .then(
+              function (response) {
+                alert("Email sent successfully!");
+              },
+              function (error) {
+                alert("Failed to send email: " + JSON.stringify(error));
+              }
+            );
+        });
+    </script>
   </body>
 </html>
